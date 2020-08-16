@@ -2,6 +2,9 @@ const endPoint = "http://127.0.0.1:3000/api/v1/beaches"
 
 document.addEventListener("DOMContentLoaded", () => {
     getBeaches()
+
+    let createBeachForm = document.querySelector('#create-beach-form')
+    createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
 })
 
 function getBeaches() {
@@ -26,4 +29,17 @@ function getBeaches() {
             document.querySelector('#beach-container').innerHTML += beachMarkup
         })
     })
-}       
+}    
+
+function createFormHandler(event) {
+    event.preventDefault()   
+    const nameInput = document.querySelector('#input-name').value
+    const countryId = parseInt(document.querySelector('#countries').value)
+    const locationInput = document.querySelector('#input-location').value
+    const descriptionInput = document.querySelector('#input-description').value
+    const imageInput = document.querySelector('#input-url').value
+        
+    postBeach(nameInput, countryId, locationInput, descriptionInput, imageInput)
+}
+
+
