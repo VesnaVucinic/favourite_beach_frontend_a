@@ -11,29 +11,19 @@ function getBeaches() {
     fetch(endPoint)
     .then(response => response.json()) 
     .then(beaches => {
-          // remember our JSON data is a bit nested due to our serializer
+            // remember our JSON data is a bit nested due to our serializer
         beaches.data.forEach(beach => {
-          // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-        render(beach)  
+            // double check how your data is nested in the console so you can successfully access the attributes of each individual object
+            //to create new instance of beach class when I made creator in beach.js 
+            // debugger
+            let newBeach = new Beach(beach, beach.attributes)
+            // render(beach)
+            document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+            // debugger
+  
         })
     })
 }   
-
-function render(beach) {
-    const beachMarkup = `
-    <div data-id=${beach.id}>
-      <h3>${beach.attributes.name}</h3>
-      <p>${beach.attributes.country.name}</p>
-      <p>${beach.attributes.location}</p>
-      <p>${beach.attributes.description}</p>
-      <img src=${beach.attributes.image_url} height="200" width="250">
-      <br><br>
-      <button data-id=${beach.id}>edit</button>
-    </div>
-    <br><br>`;
-
-    document.querySelector('#beach-container').innerHTML += beachMarkup
-}
 
 function createFormHandler(event) {
     event.preventDefault()
@@ -48,6 +38,8 @@ function createFormHandler(event) {
 
 function postBeach(name, country_id, location, description, image_url) {
     // console.log(name, country_id, location, description, image_url);
+    // in bodyData attributs has to be exactly same lake in db schema, I can give as value whatever variable I want key in body has to be exactly same like in db
+    // in let body Data I am using destructurinf and becouse I gacve same name for key and value I can have  variable let bodyData outside body of fetch request
     let bodyData = {name, country_id, location, description, image_url}
 
     fetch(endPoint, {
@@ -62,6 +54,7 @@ function postBeach(name, country_id, location, description, image_url) {
         
         const beachData =  beach.data
         // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
-        render(beachData)  
-    })
+        let newBeach = new Beach(beachData, beachData.attributes)
+        // render(beach)
+        document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();    })
 }
