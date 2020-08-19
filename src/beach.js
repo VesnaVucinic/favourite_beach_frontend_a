@@ -28,6 +28,10 @@ class Beach {
         <br><br>`;
     
     }
+
+    static findById(id) {
+        return this.all.find(beach => beach.id === id);
+    }
 }
 
 Beach.all = [];
