@@ -53,6 +53,7 @@ function postBeach(name, country_id, location, description, image_url) {
         console.log(beach)
         
         const beachData =  beach.data
+        // debugger
         // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
         let newBeach = new Beach(beachData, beachData.attributes)
         // render(beach)
