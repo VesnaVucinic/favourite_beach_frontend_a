@@ -1,4 +1,3 @@
-
 class Beach {
     // map attributes from backend (take values from db) and map those on to beach instances
     constructor(beach, beachAttributes) {
@@ -30,6 +29,7 @@ class Beach {
     }
 
     static findById(id) {
+        // debugger
         return this.all.find(beach => beach.id === id);
     }
 }
