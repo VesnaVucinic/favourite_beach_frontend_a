@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let createBeachForm = document.querySelector('#create-beach-form')
     createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
+    // const beachContainer = document.querySelector('#beach-container')
+    // beachContainer.addEventListener('click', event => { 
+    //   console.log("clicked");
+    // });
 })
 
 function getBeaches() {
