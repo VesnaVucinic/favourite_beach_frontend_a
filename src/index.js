@@ -1,6 +1,7 @@
 const endPoint = "http://127.0.0.1:3000/api/v1/beaches"
 
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM is loaded")
     getBeaches()
 
     let createBeachForm = document.querySelector('#create-beach-form')
@@ -57,5 +58,6 @@ function postBeach(name, country_id, location, description, image_url) {
         // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
         let newBeach = new Beach(beachData, beachData.attributes)
         // render(beach)
-        document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();    })
+        document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+    })
 }
