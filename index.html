@@ -7,15 +7,16 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Favourite Beach</title>
+       <!-- JS Project Tags -->
+    <script type="text/javascript" src="src/beach.js"></script>
+    <script type="text/javascript" src="src/index.js"></script>
 
     <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/"> -->
 
     <!-- Bootstrap-4 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <!-- JS Project Tags -->
-    <script type="text/javascript" src="src/beach.js"></script>
-    <script type="text/javascript" src="src/index.js"></script>
+ 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,41 +95,52 @@
 <main role="main">
 
   <section class="jumbotron text-center">
-    <div class="container" id="beach-container">
+    <div class="container">
       <form id="create-beach-form">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+          </div>
+          <input id='input-name' type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div> 
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Location</span>
+          </div>
+          <input id='input-location' type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Location" aria-label="Location" aria-describedby="basic-addon1">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Description</span>
+          </div>
+          <textarea id='input-description' class="form-control" aria-label="With textarea"></textarea>
         </div>
-        <div class="form-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" rows="3"></textarea>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Image Url</span>
+          </div>
+          <input id='input-url' type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Image Url" aria-label="Image Url" aria-describedby="basic-addon1">
-        </div>
-       
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Select a Country</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
+            <select id="countries" class="custom-select" id="inputGroupSelect01">
               <option selected></option>
               <option value="1">Greece</option>
               <option value="2">Spain</option>
               <option value="3">France</option>
             </select>
           </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button id="create-button" type="submit" class="btn btn-primary">Create New Beach</button>
         <br><br>
     </form>
     </div>
   </section>
 
   <div class="album py-5 bg-light">
-    <div class="container" id="syllabus-container">
+    <div class="container" id="beach-container">
 
       <div class="row" >
 
