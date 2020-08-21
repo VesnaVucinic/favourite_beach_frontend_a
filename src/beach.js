@@ -29,7 +29,7 @@ class Beach {
         // <br><br>`;
 
         return `
-        <div class="col-md-12">
+        <div class="col-md-8">
           <div class="card mb-4 shadow-sm">
             <img src=${this.image_url} class="card-img-top" alt="...">
             <div class="card-body">
