@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let createBeachForm = document.querySelector('#create-beach-form')
     createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
+
+    let loginForm = document.querySelector("#login-form")
+    loginForm.addEventListener("submit", (event) => loginFormHandler(event))
 })
 
 function getBeaches() {
