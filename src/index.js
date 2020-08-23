@@ -37,6 +37,22 @@ function loginFormHandler(event) {
     loginFetch(emailInput, pwInput)
 }
 
+function loginFetch(email, password) {
+    const bodyData = {user: { email, password} }
+  
+    fetch("http://localhost:3000/api/v1/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(bodyData)
+    })
+    .then(response => response.json())
+    .then(json => {
+        // console.log(json);
+      localStorage.setItem('jwt_token', json.jwt)
+      renderUserProfile()
+    })
+}
+
 function createFormHandler(event) {
     event.preventDefault()
     const nameInput = document.querySelector('#input-name').value
