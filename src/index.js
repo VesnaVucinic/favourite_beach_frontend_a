@@ -27,7 +27,15 @@ function getBeaches() {
   
         })
     })
-}   
+} 
+
+function loginFormHandler(event) {
+    event.preventDefault()
+    // console.log(event)
+    const emailInput = event.target.querySelector("#login-email").value
+    const pwInput = event.target.querySelector("#login-password").value
+    loginFetch(emailInput, pwInput)
+}
 
 function createFormHandler(event) {
     event.preventDefault()
