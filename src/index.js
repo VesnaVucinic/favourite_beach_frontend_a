@@ -53,6 +53,20 @@ function loginFetch(email, password) {
     })
 }
 
+function renderUserProfile() {
+    console.log(localStorage.getItem('jwt_token'));
+    fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        alert(`Welcome back ${json.user.data.attributes.name}`)
+    })
+}
+
 function createFormHandler(event) {
     event.preventDefault()
     const nameInput = document.querySelector('#input-name').value
