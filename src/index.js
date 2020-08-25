@@ -99,6 +99,7 @@ function postBeach(name, country_id, location, description, image_url) {
     // in let body Data I am using destructurinf and becouse I gacve same name for key and value I can have  variable let bodyData outside body of fetch request
     let bodyData = {name, country_id, location, description, image_url}
 
+
     fetch(endPoint, {
         // POST request
         method: "POST",
@@ -116,34 +117,33 @@ function postBeach(name, country_id, location, description, image_url) {
         // render(beach)
         document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
     })
-
-    function updateFormHandler(event) {
-        event.preventDefault();
-        const id = event.target.dataset.id;
-        const beach = Beach.findById(id);
-        const name = event.target.querySelector('#input-name').value;
-        const location = event.target.querySelector('#input-location').value;
-        const description = event.target.querySelector('#input-description').value;
-        const image_url = event.target.querySelector('#input-url').value;
-        const country_id = parseInt(event.target.querySelector('#categories').value);
-        patchBeach(beach, name, location, description, image_url, country_id)
-    }
-
-    // Send the PATCH Request to the Backend
-    function patchBeach(beach, name, location, description, image_url, country_id) {
-        const bodyJSON = { beach, name, location, description, image_url, country_id }
-        fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(bodyJSON),
-        })
-          .then(res => res.json())
-          // our backend responds with the updated syllabus instance represented as JSON
-          .then(updatedNote => console.log(updatedNote));
-    };
-    
-
 }
+
+function updateFormHandler(event) {
+    event.preventDefault();
+    let id = event.target.dataset.id;
+    let beach = Beach.findById(id);
+    const name = event.target.querySelector('#input-name').value;
+    const location = event.target.querySelector('#input-location').value;
+    const description = event.target.querySelector('#input-description').value;
+    const image_url = event.target.querySelector('#input-url').value;
+    const country_id = parseInt(event.target.querySelector('#categories').value);
+    patchBeach(beach, name, location, description, image_url, country_id)
+}
+
+// Send the PATCH Request to the Backend
+function patchBeach(beach, name, location, description, image_url, country_id) {
+    const bodyJSON = { beach, name, location, description, image_url, country_id }
+    fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(bodyJSON),
+    })
+      .then(res => res.json())
+      // our backend responds with the updated syllabus instance represented as JSON
+      .then(updatedNote => console.log(updatedNote));
+};
+
