@@ -1,7 +1,7 @@
 const endPoint = "http://127.0.0.1:3000/api/v1/beaches"
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM is loaded")
+    // console.log("DOM is loaded")
     getBeaches()
     // listen for 'submit' event on form and handle data
     let createBeachForm = document.querySelector('#create-beach-form')
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // debugger
     let beach = Beach.findById(id);
     // debugger
-    console.log(beach);
+    // console.log(beach);
     document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
   });
    
@@ -104,7 +104,7 @@ function postBeach(name, country_id, location, description, image_url) {
     })
     .then(response => response.json())
     .then(beach => {
-        console.log(beach)
+        // console.log(beach)
         
         const beachData =  beach.data
         // debugger
