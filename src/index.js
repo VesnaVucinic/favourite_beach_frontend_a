@@ -3,12 +3,23 @@ const endPoint = "http://127.0.0.1:3000/api/v1/beaches"
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM is loaded")
     getBeaches()
-
+    // listen for 'submit' event on form and handle data
     let createBeachForm = document.querySelector('#create-beach-form')
     createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
-
+    // listen for 'click' event on login form
     let loginForm = document.querySelector("#login-form")
     loginForm.addEventListener("submit", (event) => loginFormHandler(event))
+    // listen for 'click' event on beach container
+    let beachContainer = document.querySelector('#beach-container')
+    beachContainer.addEventListener('click', event => {
+    // console.log('clicked');
+    let id = parseInt(event.target.dataset.id);
+    // debugger
+    let beach = Beach.findById(id);
+    // debugger
+    console.log(beach);
+  });
+   
 })
 
 function getBeaches() {
