@@ -29,7 +29,7 @@ class Beach {
         // <br><br>`;
 
     return `
-        <div class="col-md-8">
+        <div data-id=${this.id} class="col-md-8">
           <div class="card mb-4 shadow-sm">
             <img src=${this.image_url} class="card-img-top" alt="...">
             <div class="card-body">
@@ -38,8 +38,8 @@ class Beach {
               <p class="card-text">${this.description}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
                 <small class="text-muted">Country: ${this.country.name}</small>
               </div>
