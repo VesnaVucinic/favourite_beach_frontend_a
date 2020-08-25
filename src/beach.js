@@ -28,7 +28,7 @@ class Beach {
         // </div>
         // <br><br>`;
 
-        return `
+    return `
         <div class="col-md-8">
           <div class="card mb-4 shadow-sm">
             <img src=${this.image_url} class="card-img-top" alt="...">
@@ -48,7 +48,10 @@ class Beach {
         </div>
         <br><br>
       `
-    
+    }
+   
+    static findById(id) {
+      return this.all.find(beach => beach.id === id);
     }
 }
 
