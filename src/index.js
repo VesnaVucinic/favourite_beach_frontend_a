@@ -63,7 +63,7 @@ function renderUserProfile() {
       })
       .then(response => response.json())
       .then(json => {
-        alert(`Welcome back ${json.user.data.attributes.name}`)
+        alert(`Welcome back ${json.user.data.attributes.email}`)
     })
 }
 
