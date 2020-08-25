@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let createBeachForm = document.querySelector('#create-beach-form')
     createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
+
+    let loginForm = document.querySelector("#login-form")
+    loginForm.addEventListener("submit", (event) => loginFormHandler(event))
 })
 
 function getBeaches() {
@@ -24,7 +27,45 @@ function getBeaches() {
   
         })
     })
-}   
+} 
+
+function loginFormHandler(event) {
+    event.preventDefault()
+    // console.log(event)
+    const emailInput = event.target.querySelector("#login-email").value
+    const pwInput = event.target.querySelector("#login-password").value
+    loginFetch(emailInput, pwInput)
+}
+
+function loginFetch(email, password) {
+    const bodyData = {user: { email, password} }
+  
+    fetch("http://localhost:3000/api/v1/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(bodyData)
+    })
+    .then(response => response.json())
+    .then(json => {
+        // console.log(json);
+      localStorage.setItem('jwt_token', json.jwt)
+      renderUserProfile()
+    })
+}
+
+function renderUserProfile() {
+    console.log(localStorage.getItem('jwt_token'));
+    fetch('http://localhost:3000/api/v1/profile', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        alert(`Welcome back ${json.user.data.attributes.email}`)
+    })
+}
 
 function createFormHandler(event) {
     event.preventDefault()
