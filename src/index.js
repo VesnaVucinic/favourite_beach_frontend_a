@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('click', event => {
     // console.log('clicked');
-    let id = parseInt(event.target.dataset.id);
+    let id = event.target.dataset.id;
     // debugger
     let beach = Beach.findById(id);
     // debugger
