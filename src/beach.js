@@ -10,7 +10,7 @@ class Beach {
         this.description = beachAttributes.description
         this.image_url = beachAttributes.image_url
         Beach.all.push(this)
-        console.log(this)
+        // console.log(this)
         // debugger
     }
 
@@ -29,7 +29,7 @@ class Beach {
         // <br><br>`;
 
     return `
-        <div data-id=${this.id} class="col-md-8">
+        <div class="col-md-8">
           <div class="card mb-4 shadow-sm">
             <img src=${this.image_url} class="card-img-top" alt="...">
             <div class="card-body">
@@ -76,7 +76,7 @@ class Beach {
             <div class="input-group-prepend">
               <span class="input-group-text">Description</span>
             </div>
-            <textarea id='input-description' value="${this.description}" class="form-control" aria-label="With textarea"></textarea>
+            <textarea id='input-description' type="text" value="${this.description}" class="form-control" aria-label="With textarea"></textarea>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -106,7 +106,40 @@ class Beach {
       </form>
       </div>
     </section>
-      `
+    `
+//     return `
+//     <form data-id=${this.id} >
+//       <h3>Edit a Beach!</h3>
+//       <input id='input-name' type="text" name="name" value="${this.name}" placeholder="Enter your beach name..." class="input-text">
+//       <br><br>
+//       <p>Select a Country</p>
+//       <select id="countries" name="countries" value="${this.country.name}">
+//         <option value="1">Greece</option>
+//         <option value="2">Spain</option>
+//         <option value="3">France</option>
+    //    <option value="4">Portugal</option>
+        // <option value="5">Cyprus</option>
+        // <option value="6">Italy</option>
+        // <option value="7">Croatia</option>
+        // <option value="8">Great Britain</option> 
+//       </select>
+//       <br><br>
+//       <input id='input-location' type="text" name="location" value="${this.location}" placeholder="Enter your beach location..." class="input-text">
+//       <br><br>
+//       <textarea id='input-description' name="description" rows="8" cols="80" value="${this.description}" placeholder="Enter your beach description..."></textarea>
+//       <br><br>
+//       <input id='input-url' type="text" name="image" value="${this.image_url}" placeholder="Enter your beach image URL..." class="input-text">
+//       <br><br>
+  
+//       <input id= 'edit-button' type="submit" name="submit" value="Edit Beach" class="submit">
+      
+//     </form> 
+
+    
+//     <br><br>
+// </div>
+
+//   `;
     }
 }
 
