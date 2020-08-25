@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let beach = Beach.findById(id);
     // debugger
     console.log(beach);
+    document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
   });
    
 })
