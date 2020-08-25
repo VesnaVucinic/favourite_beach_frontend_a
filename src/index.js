@@ -116,4 +116,16 @@ function postBeach(name, country_id, location, description, image_url) {
         // render(beach)
         document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
     })
+
+    function updateFormHandler(event) {
+        event.preventDefault();
+        const id = event.target.dataset.id;
+        const beach = Beach.findById(id);
+        const name = event.target.querySelector('#input-name').value;
+        const location = event.target.querySelector('#input-location').value;
+        const description = event.target.querySelector('#input-description').value;
+        const image_url = event.target.querySelector('#input-url').value;
+        const country_id = parseInt(event.target.querySelector('#categories').value);
+        patchBeach(beach, name, location, description, image_url, country_id)
+    }
 }
