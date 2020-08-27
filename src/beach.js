@@ -29,12 +29,12 @@ class Beach {
         // <br><br>`;
 
         return `
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src=${this.image_url} class="card-img-top" alt="...">
+            <img src=${this.image_url} class="card-img-top" alt="${this.name}">
             <div class="card-body">
               <h5 class="card-title">${this.name}</h5>
-              <h5 class="card-title">${this.location}</h5>
+              <h6 class="card-title">Location: ${this.location}</h5>
               <p class="card-text">${this.description}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
@@ -46,6 +46,7 @@ class Beach {
             </div>
           </div>
         </div>
+        
         <br><br>
       `
     

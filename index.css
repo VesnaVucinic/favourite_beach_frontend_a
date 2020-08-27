@@ -1,4 +1,4 @@
-.site-title {
+  .site-title {
     padding: 10px;
   }
   
@@ -35,4 +35,16 @@
   footer p {
     margin-bottom: .25rem;
   }
+
+  /* main {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+        /* background-color: linear-gradient(to right,#0b0C10);
+  } */
+
+  
   
