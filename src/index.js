@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let loginForm = document.querySelector("#login-form")
     loginForm.addEventListener("submit", (event) => loginFormHandler(event))
-})
+})  
 
 function getBeaches() {
     fetch(endPoint)
@@ -19,11 +19,11 @@ function getBeaches() {
         beaches.data.forEach(beach => {
             // double check how your data is nested in the console so you can successfully access the attributes of each individual object
             //to create new instance of beach class when I made creator in beach.js 
-            // debugger
+            // 
             let newBeach = new Beach(beach, beach.attributes)
             // render(beach)
             document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
-            // debugger
+        
   
         })
     })
@@ -94,10 +94,10 @@ function postBeach(name, country_id, location, description, image_url) {
     })
     .then(response => response.json())
     .then(beach => {
-        console.log(beach)
+        // console.log(beach)
         
         const beachData =  beach.data
-        // debugger
+        // 
         // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
         let newBeach = new Beach(beachData, beachData.attributes)
         // render(beach)
