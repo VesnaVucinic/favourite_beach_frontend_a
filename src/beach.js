@@ -31,7 +31,9 @@ class Beach {
         return `
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src=${this.image_url} class="card-img-top" alt="${this.name}">
+            <img src=${this.image_url} class="card-img-top" alt="...">
+            <div class="card text-center" >
+
             <div class="card-body">
               <h5 class="card-title">${this.name}</h5>
               <h6 class="card-title">Location: ${this.location}</h5>

@@ -31,9 +31,11 @@ function getBeaches() {
 
 function loginFormHandler(event) {
     event.preventDefault()
-    // console.log(event)
-    const emailInput = event.target.querySelector("#login-email").value
-    const pwInput = event.target.querySelector("#login-password").value
+    console.log(event)
+    let emailInput = event.target.querySelector("#login-email").value
+    event.target.querySelector("#login-email").value = ""
+    let pwInput = event.target.querySelector("#login-password").value
+    event.target.querySelector("#login-password").value = ""
     loginFetch(emailInput, pwInput)
 }
 
@@ -47,7 +49,7 @@ function loginFetch(email, password) {
     })
     .then(response => response.json())
     .then(json => {
-        // console.log(json);
+        console.log(json);
       localStorage.setItem('jwt_token', json.jwt)
       renderUserProfile()
     })
