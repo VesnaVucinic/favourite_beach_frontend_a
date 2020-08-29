@@ -89,12 +89,12 @@ function postBeach(name, country_id, location, description, image_url) {
     fetch(endPoint, {
         // POST request
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`},
         body: JSON.stringify(bodyData)
     })
     .then(response => response.json())
     .then(beach => {
-        // console.log(beach)
+        console.log(beach)
         
         const beachData =  beach.data
         // 
