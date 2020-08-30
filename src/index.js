@@ -41,7 +41,7 @@ function loginFormHandler(event) {
 
 function loginFetch(email, password) {
     const bodyData = {user: { email, password} }
-  
+  debugger
     fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -79,6 +79,15 @@ function createFormHandler(event) {
 
         
     postBeach(nameInput, countryId, locationInput, descriptionInput, imageInput)
+    eraseText();
+}
+
+function eraseText() {
+    document.querySelector('#input-name').value = ""
+    document.querySelector('#countries').value = ""
+    document.querySelector('#input-location').value = ""
+    document.querySelector('#input-description').value = ""
+    document.querySelector('#input-url').value = ""
 }
 
 function postBeach(name, country_id, location, description, image_url) {
