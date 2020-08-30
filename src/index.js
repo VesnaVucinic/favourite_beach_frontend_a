@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('click', event => {
     //  console.log('clicked');
-        const id = event.target.dataset.id;
-        debugger
-        const beach = Beach.findById(id);
+        let id = event.target.dataset.id;
+        // debugger
+        let beach = Beach.findById(id);
         // debugger
         console.log(beach);
     });
