@@ -9,6 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let loginForm = document.querySelector("#login-form")
     loginForm.addEventListener("submit", (event) => loginFormHandler(event))
+
+    // listen for 'click' event on beach container
+    let beachContainer = document.querySelector('#beach-container')
+    beachContainer.addEventListener('click', event => {
+    // console.log('clicked');
+    let id = event.target.dataset.id;
+    // debugger
+    let beach = Beach.findById(id);
+    // debugger
+    // console.log(beach);
+    document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
 })  
 
 function getBeaches() {
