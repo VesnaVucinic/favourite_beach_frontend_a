@@ -53,6 +53,10 @@ class Beach {
       // <p class="card-text">${this.description}</p>
 
     }
+
+    static findById(id) {
+      return this.all.find(beach => beach.id === id);
+    }
 }
 
 Beach.all = [];
