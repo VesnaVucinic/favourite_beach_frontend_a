@@ -6,7 +6,8 @@
     padding-top: 3rem;
     padding-bottom: 3rem;
     margin-bottom: 0;
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-image: url("https://www.greeka.com/village_beach/photos/1683/lalaria-top-1-1280.jpg");
   }
   @media (min-width: 768px) {
     .jumbotron {
@@ -36,10 +37,30 @@
     margin-bottom: .25rem;
   }
 
+  /* main {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+        /* background-color: linear-gradient(to right,#0b0C10);
+  } */
+  #navbarHeader {
+    background-color: rgb(3, 17, 82);
+  }
 
+  .navbar {
+    color:  white;
+    background-color: rgb(3, 17, 82);
 
-  
+ 
+  }
 
+  .navbar-toggler-icon {
+    color:  white;
 
+ 
+  }
   
   
