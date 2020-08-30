@@ -118,6 +118,13 @@ class Syllabus {
     return this.all.find(syllabus => syllabus.id === id);
   }
 }
+
+ja
+   static findById(id) {
+      return this.all.find(beach => beach.id === id);
+    }
+
+
 From learn.co:
 
 Static methods are useful ways to create utility methods for your data. If you have operation that you need do perform on a batch of data (say, find a particular syllabus in an array, as above), static methods are your go-to tool. Since they are called on the class but don't have access to individual objects, they are somewhat limited in their scope, but can be very powerful in the correct application.
@@ -171,6 +178,20 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(syllabus);
   });
 })
+
+ja
+    // listen for 'click' event on beach container
+    let beachContainer = document.querySelector('#beach-container')
+    beachContainer.addEventListener('click', event => {
+    // console.log('clicked');
+    let id = event.target.dataset.id;
+    // debugger
+    let beach = Beach.findById(id);
+    // debugger
+    // console.log(beach);
+    document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
+
+
 Once we have the syllabus instance the next step is pretty easy. Just as we can call a prototype method syllabus.renderListItem on a syllabus instance we'll make a prototype method syllabus.renderUpdateForm and attach HTML to the DOM. This is like telling a syllabus object: 'use your state (all the information about this syllabus) to create an update form for it'.
 
 Create the HTML for your edit form:
@@ -209,11 +230,77 @@ class Syllabus {
   `;
   }
 }
+
+ja
+ renderUpdateForm() {
+      return `
+      <section class="jumbotron text-center">
+      <div class="container">
+        <form data-id=${this.id}>
+          <h3>Edit a Beach!</h3>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+            </div>
+            <input id='input-name' type="text" value="${this.name}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div> 
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Location</span>
+            </div>
+            <input id='input-location' type="text" value="${this.location}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Description</span>
+            </div>
+            <textarea id='input-description' type="text" value="${this.description}" class="form-control" aria-label="With textarea"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3">Image Url</span>
+            </div>
+            <input id='input-url' value="${this.image_url}" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+          </div>
+  
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Select a Country</label>
+              </div>
+              <select id="countries" value="${this.country.name}" class="custom-select" id="inputGroupSelect01">
+                <option selected></option>
+                <option value="1">Greece</option>
+                <option value="2">Spain</option>
+                <option value="3">France</option>
+                <option value="4">Portugal</option>
+                <option value="5">Cyprus</option>
+                <option value="6">Italy</option>
+                <option value="7">Croatia</option>
+                <option value="8">Great Britain</option>
+              </select>
+            </div>
+          <button id="edit-button" type="submit" class="btn btn-primary">Edit Beach</button>
+          <br><br>
+      </form>
+      </div>
+    </section>
+    `
+ }
+
+
 Add a div for the form to render in index.html:
 
 <div id="update-syllabus">
 
 </div>
+
+ja
+  <div id="update-beach">
+
+  </div>
+
+</main>
+
 Render the edit form when the edit button is clicked:
 
 /* src/index.js */
@@ -252,6 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // listen for the submit event of the edit form and handle the data
   document.querySelector('#update-syllsbus').addEventListener('submit', e => updateFormHandler(e))
 })
+
+ja
+// listen for the submit event of the edit form and handle the data
+    document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event))
+})****
 Handle the Data from the Event
 function updateFormHandler(e) {
   e.preventDefault();
@@ -263,6 +355,19 @@ function updateFormHandler(e) {
   const category_id = parseInt(e.target.querySelector('#categories').value);
   patchSyllabus(syllabus, title, description, image_url, category_id)
 }
+
+ja 
+function updateFormHandler(event) {
+    event.preventDefault();
+    let id = event.target.dataset.id;
+    let beach = Beach.findById(id);
+    const name = event.target.querySelector('#input-name').value;
+    const location = event.target.querySelector('#input-location').value;
+    const description = event.target.querySelector('#input-description').value;
+    const image_url = event.target.querySelector('#input-url').value;
+    const country_id = parseInt(event.target.querySelector('#categories').value);
+    patchBeach(beach, name, location, description, image_url, country_id)
+}*************
 Send the PATCH Request to the Backend
 function patchSyllabus(syllabus, title, description, image_url, category_id) {
   const bodyJSON = { title, description, image_url, category_id }
@@ -279,6 +384,23 @@ function patchSyllabus(syllabus, title, description, image_url, category_id) {
     .then(updatedNote => console.log(updatedNote));
 });
 }
+
+// Send the PATCH Request to the Backend
+function patchBeach(beach, name, location, description, image_url, country_id) {
+    const bodyJSON = { beach, name, location, description, image_url, country_id }
+    fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(bodyJSON),
+    })
+      .then(res => res.json())
+      // our backend responds with the updated syllabus instance represented as JSON
+      .then(updatedNote => console.log(updatedNote));
+};
+
 Note: If you are not familiar with what is going on in the line const bodyJSON = { title, description, image_url, category_id }, look into ES6 Destructuring
 
 Source: JavaScript Rails API Project Setup
