@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let beach = Beach.findById(id);
         // debugger
         console.log(beach);
+        // Render the edit form when the edit button is clicked
+        // debugger
+        document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
     });
 })  
 
