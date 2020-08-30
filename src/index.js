@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let loginForm = document.querySelector("#login-form")
     loginForm.addEventListener("submit", (event) => loginFormHandler(event))
+
+    // listen for 'click' event on beach container
+    let beachContainer = document.querySelector('#beach-container')
+    beachContainer.addEventListener('click', event => {
+     console.log('clicked');
+    });
 })  
 
 function getBeaches() {
@@ -41,7 +47,7 @@ function loginFormHandler(event) {
 
 function loginFetch(email, password) {
     const bodyData = {user: { email, password} }
-  debugger
+//   debugger
     fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
