@@ -141,4 +141,23 @@ function updateFormHandler(event) {
     patchBeach(beach, name, location, description, image_url, country_id)
 }
 
+// Send the PATCH Request to the Backend
+function patchBeach(beach, name, location, description, image_url, country_id) {
+    const bodyJSON = { beach, name, location, description, image_url, country_id }
+    fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
+      method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //   },
+      headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`},
+
+      body: JSON.stringify(bodyJSON),
+    })
+      .then(res => res.json())
+      // our backend responds with the updated syllabus instance represented as JSON
+      .then(updatedNote => console.log(updatedNote));
+};
+
+
 
