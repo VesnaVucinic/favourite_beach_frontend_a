@@ -14,12 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('click', event => {
     // console.log('clicked');
-    let id = event.target.dataset.id;
-    // debugger
-    let beach = Beach.findById(id);
-    // debugger
-    // console.log(beach);
-    document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
+        let id = event.target.dataset.id;
+        // debugger
+        let beach = Beach.findById(id);
+        // debugger
+        // console.log(beach);
+        document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
+    })
     // listen for the submit event of the edit form and handle the data
     document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event))
 })  
