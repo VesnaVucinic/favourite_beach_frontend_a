@@ -32,15 +32,15 @@ class Beach {
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
           <img src=${this.image_url} class="card-img-top" alt="...">
+          <div class="card text-center" >
+
           <div class="card-body">
-            <h5 class="card-title">${this.name}</h5>
-            <h5 class="card-title">${this.location}</h5>
+            <h6 class="card-title">${this.name}</h6>
+            <p class="card-title">Location: ${this.location}</p>
+            <p class="card-title">Country: ${this.country.name}</p>
             <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">View</button>
                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">Country: ${this.country.name}</small>
             </div>
           </div>
         </div>
@@ -50,7 +50,6 @@ class Beach {
   }
   // <p class="card-text">${this.description}</p>
 
- 
   static findById(id) {
     return this.all.find(beach => beach.id === id);
   }
