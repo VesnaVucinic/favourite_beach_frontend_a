@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // debugger
     // console.log(beach);
     document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
+    // listen for the submit event of the edit form and handle the data
+    document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event))
 })  
 
 function getBeaches() {
