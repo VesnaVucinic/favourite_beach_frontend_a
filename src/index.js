@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // listen for 'click' event on beach container
     let beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('click', event => {
-        // console.log('clicked');
+        console.log('clicked');
         let id = event.target.dataset.id;
         // debugger
         let beach = Beach.findById(id);
-        // debugger
+        debugger
         console.log(beach);
         // Render the edit form when the edit button is clicked
         // debugger
@@ -129,33 +129,39 @@ function postBeach(name, country_id, location, description, image_url) {
         // render(beach)
         document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
     })
+}
 
-    function updateFormHandler(event) {
-        event.preventDefault();
-        let id = event.target.dataset.id;
-        let beach = Beach.findById(id);
-        const name = event.target.querySelector('#input-name').value;
-        const location = event.target.querySelector('#input-location').value;
-        const description = event.target.querySelector('#input-description').value;
-        const image_url = event.target.querySelector('#input-url').value;
-        const country_id = parseInt(event.target.querySelector('#categories').value);
-        patchBeach(beach, name, location, description, image_url, country_id)
-    }
+function updateFormHandler(event) {
+    event.preventDefault();
+    let id = event.target.dataset.id;
+    let beach = Beach.findById(id);
+    // debugger
+    const name = event.target.querySelector('#input-name').value;
+    const location = event.target.querySelector('#input-location').value;
+    const description = event.target.querySelector('#input-description').value;
+    const image_url = event.target.querySelector('#input-url').value;
+    const country_id = parseInt(event.target.querySelector('#countries').value);
+    patchBeach(beach, name, location, description, image_url, country_id)
+    eraseText();
+}
 
-    // Send the PATCH Request to the Backend
+ // Send the PATCH Request to the Backend
 function patchBeach(beach, name, location, description, image_url, country_id) {
+    // debugger
     const bodyJSON = { beach, name, location, description, image_url, country_id }
-    fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
+    fetch(`http://localhost:3000/api/v1/beaches/${parseInt(beach.id)}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`
       },
       body: JSON.stringify(bodyJSON),
     })
       .then(res => res.json())
-      // our backend responds with the updated syllabus instance represented as JSON
-      .then(updatedNote => console.log(updatedNote));
+      // our backend responds with the updated beach instance represented as JSON
+      
+      .then(updatedBeach => console.log(updatedBeach));
 };
 
-}
+
