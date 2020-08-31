@@ -38,6 +38,8 @@ class Beach {
             <h6 class="card-title">${this.name}</h6>
             <p class="card-title">Location: ${this.location}</p>
             <p class="card-title">Country: ${this.country.name}</p>
+            <p class="card-text">${this.description}</p>
+
             <div class="d-flex justify-content-between align-items-center">
                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">View</button>
                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
@@ -59,7 +61,6 @@ class Beach {
     <section class="jumbotron text-center">
     <div class="container">
       <form data-id=${this.id}>
-        <h3>Edit a Beach!</h3>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
@@ -76,13 +77,13 @@ class Beach {
           <div class="input-group-prepend">
             <span class="input-group-text">Description</span>
           </div>
-          <textarea id='input-description' type="text" value="${this.description}" class="form-control" aria-label="With textarea"></textarea>
+          <input id='input-description' type="text" value="${this.description}" class="form-control">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon3">Image Url</span>
           </div>
-          <input id='input-url' value="${this.image_url}" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+          <input id='input-url' value="${this.image_url}" type="text" class="form-control"  aria-describedby="basic-addon3">
         </div>
 
         <div class="input-group mb-3">
@@ -101,7 +102,7 @@ class Beach {
               <option value="8">Great Britain</option>
             </select>
           </div>
-        <button id="edit-button" type="submit" class="btn btn-primary">Edit Beach</button>
+        <button id="edit-button" type="submit" class="btn btn-primary" class ="submit">Edit Beach</button>
         <br><br>
     </form>
     </div>
