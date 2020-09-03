@@ -38,11 +38,8 @@ class Beach {
             <h6 class="card-title">${this.name}</h6>
             <p class="card-title">Location: ${this.location}</p>
             <p class="card-title">Country: ${this.country.name}</p>
-            <p class="card-text">${this.description}</p>
-
             <div class="d-flex justify-content-between align-items-center">
                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
             </div>
           </div>
         </div>
@@ -51,6 +48,27 @@ class Beach {
     `
   }
   // <p class="card-text">${this.description}</p>
+  renderShowBeach() {
+  return `
+  <div class="col-md-12">
+    <div class="card mb-4 shadow-sm">
+      <img src=${this.image_url} class="card-img-top" alt="...">
+      <div class="card text-center" >
+
+      <div class="card-body">
+        <h6 class="card-title">${this.name}</h6>
+        <p class="card-title">Location: ${this.location}</p>
+        <p class="card-title">Country: ${this.country.name}</p>
+        <p class="card-text">${this.description}</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+`
+}
 
   static findById(id) {
     return this.all.find(beach => beach.id === id);
@@ -59,7 +77,7 @@ class Beach {
   renderUpdateForm() {
     return `
     <section class="jumbotron text-center">
-    <div class="container">
+    <div class="container" class="col-md-8">
       <form data-id=${this.id}>
         <div class="input-group mb-3">
           <div class="input-group-prepend">

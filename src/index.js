@@ -11,20 +11,32 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", (event) => loginFormHandler(event))
 
     // listen for 'click' event on beach container
+    
     let beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('click', event => {
-        console.log('clicked');
+        // console.log('clicked');
+        let id = event.target.dataset.id;
+        debugger
+        let beach = Beach.findById(id);
+        // debugger
+        // console.log(beach);
+        document.querySelector('#show-beach').innerHTML = beach.renderShowBeach();   
+    }) 
+
+    let showBeachContainer = document.querySelector('#show-beach')
+    showBeachContainer.addEventListener('click', event => {
+        // console.log('clicked');
         let id = event.target.dataset.id;
         // debugger
         let beach = Beach.findById(id);
-        debugger
-        console.log(beach);
+        // debugger
+        // console.log(beach);
         // Render the edit form when the edit button is clicked
         // debugger
         document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
         // listen for the submit event of the edit form and handle the data
         document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event)) 
-    });
+    })
 })  
 
 function getBeaches() {
@@ -147,7 +159,7 @@ function updateFormHandler(event) {
 
  // Send the PATCH Request to the Backend
 function patchBeach(beach, name, location, description, image_url, country_id) {
-    // debugger
+    debugger
     const bodyJSON = { beach, name, location, description, image_url, country_id }
     fetch(`http://localhost:3000/api/v1/beaches/${parseInt(beach.id)}`, {
       method: 'PATCH',
@@ -162,6 +174,8 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
       // our backend responds with the updated beach instance represented as JSON
       
       .then(updatedBeach => console.log(updatedBeach));
+    //   debugger
+
 };
 
 

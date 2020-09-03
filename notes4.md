@@ -341,8 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 ja
-// listen for the submit event of the edit form and handle the data
-    document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event))
+
 })****
 Handle the Data from the Event
 function updateFormHandler(e) {
@@ -388,7 +387,7 @@ function patchSyllabus(syllabus, title, description, image_url, category_id) {
 // Send the PATCH Request to the Backend
 function patchBeach(beach, name, location, description, image_url, country_id) {
     const bodyJSON = { beach, name, location, description, image_url, country_id }
-    fetch(`http://localhost:3000/api/v1/beaches/${patchBeach.id}`, {
+    fetch(`http://localhost:3000/api/v1/beaches/${beach.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
