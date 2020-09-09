@@ -243,7 +243,7 @@ function deleteBeach() {
         // );
         // // debugger
         // selectedBeach.remove();
-        event.target.parentElement.remove()
+        event.target.parentElement.parentElement.parentElement.parentElement.remove()
     //   });
     //   debugger
 }

@@ -41,7 +41,6 @@ class Beach {
 
             <div class="d-flex justify-content-between align-items-center">
             <button type="submit" onClick="deleteBeach();" data-id="${this.id}" class="delete">Delete</button>
-
             </div>
           </div>
         </div>
