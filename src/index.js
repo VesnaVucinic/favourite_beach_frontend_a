@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // listen for 'click' event on beach container
     
     let beachContainer = document.querySelector('#beach-container')
-    beachContainer.addEventListener('click', event => {
+    beachContainer.addEventListener('dblclick', event => {
         // console.log('clicked');
         let id = event.target.dataset.id;
         // debugger
@@ -21,23 +21,36 @@ document.addEventListener("DOMContentLoaded", () => {
         // debugger
         // console.log(beach);
         document.querySelector('#show-beach').innerHTML = beach.renderShowBeach();   
+        
     }) 
 
-    let showBeachContainer = document.querySelector('#show-beach')
-    showBeachContainer.addEventListener('click', event => {
-        // console.log('clicked');
-        let id = event.target.dataset.id;
-        // debugger
-        let beach = Beach.findById(id);
-        // debugger
-        console.log(beach);
-        // Render the edit form when the edit button is clicked
-        // debugger
-        document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
-        // listen for the submit event of the edit form and handle the data
-        document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event)) 
-    })
-})  
+    // let showBeachContainer = document.querySelector('#show-beach')
+    // showBeachContainer.addEventListener('click', event => {
+    //     // console.log('clicked');
+    //     let id = event.target.dataset.id;
+    //     // debugger
+    //     let beach = Beach.findById(id);
+    //     // debugger
+    //     console.log(beach);
+    //     // Render the edit form when the edit button is clicked
+    //     // debugger
+    //     document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
+    //     // listen for the submit event of the edit form and handle the data
+    //     document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event)) 
+    // })
+
+    // let showBeachContainer = document.querySelector('#show-beach')
+    // showBeachContainer.addEventListener('click', event => {
+    //     // console.log('clicked');
+    //     let id = event.target.dataset.id;
+    //     // debugger
+    //     let beach = Beach.findById(id);
+    //     // debugger
+    //     console.log(beach);
+    //     deleteBeach()
+    // })
+});
+  
 
 function getBeaches() {
     fetch(endPoint)
@@ -154,7 +167,7 @@ function updateFormHandler(event) {
     const image_url = event.target.querySelector('#input-url').value;
     const country_id = parseInt(event.target.querySelector('#countries').value);
     patchBeach(beach, name, location, description, image_url, country_id)
-    eraseText();
+    
 }
 
  // Send the PATCH Request to the Backend
@@ -175,5 +188,22 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
       .then(updatedBeach => console.log(updatedBeach));
     //   debugger
 };
+
+function deleteBeach() {
+    let beachDataId = event.target.dataset.id;
+    // debugger
+    fetch(`http://127.0.0.1:3000/api/v1/beaches/${beachDataId}`, {
+      method: "DELETE",
+      headers: {
+                
+                "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`
+              },
+    })
+        event.target.parentElement.parentElement.parentElement.parentElement.remove()
+}
+
+function closeBeach() {
+    event.target.parentElement.parentElement.parentElement.parentElement.remove()
+}
 
 
