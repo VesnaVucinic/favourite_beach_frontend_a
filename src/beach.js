@@ -17,19 +17,6 @@ class Beach {
 
 
   renderBeachCard() {
-      // debugger
-      // return `
-      // <div data-id=${this.id}>
-      //   <h3>${this.name}</h3>
-      //   <p>${this.country.name}</p>
-      //   <p>${this.location}</p>
-      //   <p>${this.description}</p>
-      //   <img src=${this.image_url} height="200" width="250">
-      //   <br><br>
-      //   <button data-id=${this.id}>edit</button>
-      // </div>
-      // <br><br>`;
-
   return `
       <div  class="col-md-4">
         <div class="card mb-4 shadow-sm">
@@ -43,8 +30,7 @@ class Beach {
 
             <div class="d-flex justify-content-between align-items-center">
             <button type="button" onClick="deleteBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Delete</button>
-            <button type="button" onClick="renderShowBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Read more</button>
-            <button type="button"  data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
+            <button type="button" id="read"  data-id=${this.id} class="btn btn-sm btn-outline-secondary">Read more</button>
             </div>
           </div>
         </div>
@@ -52,9 +38,6 @@ class Beach {
       <br><br>
     `
   }
-  // <p class="card-text">${this.description}</p>                 <button type="button" data-id=${this.id} class="btn btn-sm btn-outline-secondary">View</button>
-//             <button type="submit" data-id="${this.id}">Show more</button>
-
 
   static findById(id) {
     return this.all.find(beach => beach.id === id);
@@ -73,6 +56,7 @@ class Beach {
           <p class="card-title">Country: ${this.country.name}</p>
           <p class="card-text">${this.description}</p>
           <div class="d-flex justify-content-between align-items-center">
+            <button type="button" id="edit" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
             <button type="button" onClick="closeBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Close</button>
           </div>
         </div>
