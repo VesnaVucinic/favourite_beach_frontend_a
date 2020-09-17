@@ -24,20 +24,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }) 
     // let showBeachContainer = document.getElementById('#edit')
     let showBeachContainer = document.querySelector('#show-beach')
-    showBeachContainer.addEventListener('click', event => {
+    showBeachContainer.addEventListener('dblclick', event => {
         // console.log('clicked');
         let id = event.target.dataset.id;
         // debugger
         let beach = Beach.findById(id);
         // debugger
-        console.log(beach);
+        // console.log(beach);
         // Render the edit form when the edit button is clicked
         // debugger
         document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
         // listen for the submit event of the edit form and handle the data
         document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event)) 
     })
+
+    // handelSubmitEdit()
+
 });
+
+// function handelSubmitEdit() {
+//     const submitEdit = document.getElementById('create-button')
+//     console.log('@@edit', submitEdit)
+// }
   
 
 function getBeaches() {
@@ -154,14 +162,15 @@ function updateFormHandler(event) {
     const description = event.target.querySelector('#input-description').value;
     const image_url = event.target.querySelector('#input-url').value;
     const country_id = parseInt(event.target.querySelector('#countries').value);
-    patchBeach(beach, name, location, description, image_url, country_id)
-    
+    patchBeach(beach, name, location, description, image_url, country_id) 
 }
 
  // Send the PATCH Request to the Backend
 function patchBeach(beach, name, location, description, image_url, country_id) {
     // debugger
     const bodyJSON = {name, location, description, image_url, country_id}
+    // document.querySelector('#show-beach').innerHTML = beach.bodyJSON
+
     // debugger
     fetch(`http://localhost:3000/api/v1/beaches/${beach.id}`, {
       method: 'PATCH',
@@ -174,10 +183,10 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
       .then(res => res.json())
       // our backend responds with the updated beach instance represented as JSON
       
-      .then(updatedBeach => 
-        console.log(updatedBeach)
-
-         
+      .then(updatedBeachJSON => 
+        console.log(updatedBeachJSON) 
+        //   beach.innerHTML = updatedBeach
+        // document.querySelector('#beach-container').innerHTML = newBeach.renderBeachCard()
     );
     //   debugger
 };
