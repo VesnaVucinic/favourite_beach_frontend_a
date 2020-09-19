@@ -6,17 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // In the DOMContentLoaded event listener find the form on the DOM and attach a submit event listener to the form element.
     const createBeachForm = document.querySelector('#create-beach-form')
-    createBeachForm.addEventListener('submit', (event) => createFormHandler(event))
+    createBeachForm.addEventListener('submit', (e) => createFormHandler(e))
 
     const loginForm = document.querySelector("#login-form")
-    loginForm.addEventListener("submit", (event) => loginFormHandler(event))
+    loginForm.addEventListener("submit", (e) => loginFormHandler(e))
 
     // listen for 'click' event on beach container
     // let beachContainer = document.getElementById("read")
     const beachContainer = document.querySelector('#beach-container')
-    beachContainer.addEventListener('dblclick', event => {
+    beachContainer.addEventListener('dblclick', e => {
         // console.log('clicked');
-        const id = event.target.dataset.id;
+        const id = e.target.dataset.id;
         // debugger
         const beach = Beach.findById(id);
         // debugger
@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }) 
     // let showBeachContainer = document.getElementById('#edit')
     const showBeachContainer = document.querySelector('#show-beach')
-    showBeachContainer.addEventListener('dblclick', event => {
+    showBeachContainer.addEventListener('dblclick', e => {
         // console.log('clicked');
-        const id = event.target.dataset.id;
+        const id = e.target.dataset.id;
         // debugger
         const beach = Beach.findById(id);
         // debugger
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // debugger
         document.querySelector('#update-beach').innerHTML = beach.renderUpdateForm();
         // listen for the submit event of the edit form and handle the data
-        document.querySelector('#update-beach').addEventListener('submit', event => updateFormHandler(event)) 
+        document.querySelector('#update-beach').addEventListener('submit', e => updateFormHandler(e)) 
     })
 
     // handelSubmitEdit()
@@ -107,8 +107,8 @@ function renderUserProfile() {
 }
 
 // Gather all the input values and pass it to function to execute the post fetch.
-function createFormHandler(event) {
-    event.preventDefault()
+function createFormHandler(e) {
+    e.preventDefault()
     const nameInput = document.querySelector('#input-name').value
     const countryId = parseInt(document.querySelector('#countries').value)
     const locationInput = document.querySelector('#input-location').value
@@ -154,16 +154,16 @@ function postBeach(name, country_id, location, description, image_url) {
     })
 }
 
-function updateFormHandler(event) {
-    event.preventDefault();
-    const id = event.target.dataset.id;
+function updateFormHandler(e) {
+    e.preventDefault();
+    const id = e.target.dataset.id;
     const beach = Beach.findById(id);
     // debugger
-    const name = event.target.querySelector('#input-name').value;
-    const location = event.target.querySelector('#input-location').value;
-    const description = event.target.querySelector('#input-description').value;
-    const image_url = event.target.querySelector('#input-url').value;
-    const country_id = parseInt(event.target.querySelector('#countries').value);
+    const name = e.target.querySelector('#input-name').value;
+    const location = e.target.querySelector('#input-location').value;
+    const description = e.target.querySelector('#input-description').value;
+    const image_url = e.target.querySelector('#input-url').value;
+    const country_id = parseInt(e.target.querySelector('#countries').value);
     patchBeach(beach, name, location, description, image_url, country_id) 
 }
 
