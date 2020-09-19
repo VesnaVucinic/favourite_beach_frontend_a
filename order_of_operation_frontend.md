@@ -122,7 +122,7 @@ The application we will create during the project build series is a "Syllabus Sh
 
 - [x] 5. Think about the **JS mantra** and answer this question: When the _DOM Content is Loaded_, I want to make a  _GET_ fetch and then manipulate the DOM _in what way_ (usually render the data)?
 - [x] 6. Create `DOMContentLoaded` event listener and `console.log("loaded")` as the event handler to confirm we've properly set up the listener.
-- [x] 7. We're eventually going to make a call to the `index` route of our API (ex: `localhost:3000/api/v1/syllabuses`). Run your `rails server` and visit that end point in the browser to confirm the expected JSON data is present.
+- [x] 7. We're eventually going to make a call to the `index` route of our API (ex: `localhost:3000/api/v1/beaches`). Run your `rails server` and visit that end point in the browser to confirm the expected JSON data is present.
 - [x] 8. We can see the JSON data in the browser but in order to access it in our frontend, we'll need to setup Cross Origin Resource Sharing (CORS). In order to do this we'll need to do a couple things:
     - Navigate to your Gemfile and uncomment `gem 'rack-cors'` then `bundle install`. You can read more about CORS in the PART 3 notes and [here](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
     - Inside of `config/initializers/cors.rb` uncomment the CORS code and update `origins 'example.com'` to `origins '*'`
@@ -155,8 +155,8 @@ The application we will create during the project build series is a "Syllabus Sh
 
 ### PART 4: OOJS Refactor
 - [x] 1. _IMPORTANT:_ Create a separate branch for your OOJS Refactor
-- [x] 2. Create a JS Class (ex: `class Syllabus`)
-- [x] 3. Link to the new JS file in your `index.html` (ex: `<script type="text/javascript" src="src/syllabus.js"></script>`)
+- [x] 2. Create a JS Class (ex: `class Beach`)
+- [x] 3. Link to the new JS file in your `index.html` (ex: `<script type="text/javascript" src="src/beach.js"></script>`)
 - [x] 4. Create a constructor that pushes all instances of `this` into an empty array (See part 4 notes for example)
 - [x] 5. Refactor render functionality by creating a render function in your JS class
 - [ ] 6. For future use, create a static method in your JS class that finds an object based on it's id. (In the PART 4 notes we see how this would be useful for 'update/`PATCH`' functionality)
