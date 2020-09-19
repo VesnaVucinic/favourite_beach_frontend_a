@@ -2,7 +2,7 @@ PART 3 Review
 Events
 Fetch (GET and POST)
 Implement .catch()
-function getSyllabi() {
+function getBeaches() {
   fetch(endPoint)
     .then(res => res.json())
     .then(json => console.log(json));
@@ -12,49 +12,58 @@ DOM Manipulation
 Render refactor
 Refactor your code to make it more DRY and implement a render function you can reuse in multiple places.
 
-function render(syllabus) {
-  const syllabusMarkup = `
-          <div data-id=${syllabus.id}>
-            <img src=${syllabus.attributes.image_url} height="200" width="250">
-            <h3>${syllabus.attributes.title}</h3>
-            <p>${syllabus.attributes.category.name}</p>
-            <button data-id=${syllabus.id}>edit</button>
-          </div>
-          <br><br>`;
+function render(beach) {
+    const beachMarkup = `
+    <div data-id=${beach.id}>
+      <h3>${beach.attributes.name}</h3>
+      <p>${beach.attributes.country.name}</p>
+      <p>${beach.attributes.location}</p>
+      <p>${beach.attributes.description}</p>
+      <img src=${beach.attributes.image_url} height="200" width="250">
+      <br><br>
+      <button data-id=${beach.id}>edit</button>
+    </div>
+    <br><br>`;
 
-  document.querySelector('#syllabus-container').innerHTML += syllabusMarkup;
+    document.querySelector('#beach-container').innerHTML += beachMarkup
 }
-PART 4 — OOJS Refactor
-Refactor Render Using Syllabus Class
+
+RT 4 — OOJS Refactor
+Refactor Render Using Beach Class
 If our only deliverable was to show text on the page, our code would be sufficient. There's a real deficiency with our current implementation though.
 
 Think about the next step where a user clicks one of the edit buttons. Without storing ids in the html elements how could we
 
-a) determine which syllabus got clicked on and
+a) determine which beach got clicked on and
 
-b) show more information about that syllabus (the content of the syllabus)?
+b) show more information about that beach (the content of the beach)?
 
 Please take a moment to think this through and make sure you understand the following before moving forward.
 
 The only way to solve this problem would be to grab the text of the h3 element from the DOM, use that title to query our backend and do something in our Rails controller along the lines of...
 
-@syllabus = Syllabus.find_by(title: params[:title])
-This would feel really annoying. We just had access to this data when we retrieved all the syllabi, but we effectively threw it away.
+@beach = Beach.find_by(name: params[:name])
+This would feel really annoying. We just had access to this data when we retrieved all the beaches, but we effectively threw it away.
 
-This is where we can refactor to use Object Orientation. We can take advantage of the encapsulation provided by objects to store all the data about a particular syllabus in one place.
+This is where we can refactor to use Object Orientation. We can take advantage of the encapsulation provided by objects to store all the data about a particular beach in one place.
 
-If we weren't storing an id on the button, a second annoyance we might notice about our current implementation is that when the edit button is clicked, nothing on the button itself indicates what syllabus the button is for. We would have to look at the text of it's parent h3 element. We've solved this by adding data-attributes on the parent <div> and <button>.
+If we weren't storing an id on the button, a second annoyance we might notice about our current implementation is that when the edit button is clicked, nothing on the button itself indicates what beach the button is for. We would have to look at the text of it's parent h3 element. We've solved this by adding data-attributes on the parent <div> and <button>.
 
-Create Syllabus Class and Render Function
-/* create a file src/syllabus.js and link to it from your index.html */
-class Syllabus {
-  constructor(id, syllabusAttributes) {
-    this.id = id;
-    this.title = syllabusAttributes.title;
-    this.description = syllabusAttributes.description;
-    this.image_url = syllabusAttributes.image_url;
-    this.category = syllabusAttributes.category;
-    Syllabus.all.push(this);
+Create Beach Class and Render Function
+/* create a file src/beach.js and link to it from your index.html */
+class Beach {
+  // map attributes from backend (take values from db) and map those on to beach instances
+  constructor(beach, beachAttributes) {
+      this.id = beach.id
+      // debugger
+      this.name = beachAttributes.name
+      this.country = beachAttributes.country
+      this.location = beachAttributes.location
+      this.description = beachAttributes.description
+      this.image_url = beachAttributes.image_url
+      Beach.all.push(this)
+      // console.log(this)
+      // debugger
   }
 
   renderSyllabusCard() {
@@ -67,55 +76,87 @@ class Syllabus {
             </div>
             <br><br>`;
   }
+
+  renderBeachCard() {
+  return `
+      <div  class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src=${this.image_url} class="card-img-top" alt="...">
+          <div class="card text-center" >
+
+          <div class="card-body">
+            <h6 class="card-title">${this.name}</h6>
+            <p class="card-title">Location: ${this.location}</p>
+            <p class="card-title">Country: ${this.country.name}</p>
+
+            <div class="d-flex justify-content-between align-items-center">
+            <button type="button" onClick="deleteBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Delete</button>
+            <button type="button" id="read"  data-id=${this.id} class="btn btn-sm btn-outline-secondary">Read more</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+    `
+  }
 }
 
-Syllabus.all = [];
-Note: if you are not familiar with html5 data-attributes check them out. We totalllyyyy could have taken the id of the syllabus and added it to the DOM in the button's id or class properties. However, html ids and classes are typically used for css, not to store data.
+Beach.all = [];
+Note: if you are not familiar with html5 data-attributes check them out. We totalllyyyy could have taken the id of the beach and added it to the DOM in the button's id or class properties. However, html ids and classes are typically used for css, not to store data.
 
 But this is exactly what data-attributes are for and should make our lives easier. The important takeaway here is that the data our application logic depends on lives in the DOM itself and we must put it there somehow. Understanding that is more important than how exactly we put that data there.
 
 Refactor GET
 /* src/index.js */
-function getSyllabi() {
-  fetch(endPoint)
-  .then(response => response.json())
-  .then(syllabi => {
-    syllabi.data.forEach(syllabus => {
-      // create a new instance of the Syllabus class for every syllabus in the array from the DB (remember how our data is nested)
-      const newSyllabus = new Syllabus(syllabus.id, syllabus.attributes)
-
-      // call renderSyllabusCard() located in Syllabus class
-      document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
+function getBeaches() {
+    fetch(endPoint)
+    .then(response => response.json()) 
+    .then(beaches => {
+            // remember our JSON data is a bit nested due to our serializer
+        beaches.data.forEach(beach => {
+            // double check how your data is nested in the console so you can successfully access the attributes of each individual object
+            // create a new instance of the Beach class for every beach in the array from the DB (remember how our data is nested)
+            //to create new instance of beach class when I made creator in beach.js 
+            // 
+            const newBeach = new Beach(beach, beach.attributes)
+            // render(beach) - call renderBeachCard() located in Beach class
+            document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+        })
     })
-  })
 }
 Refactor POST
-function postFetch(title, description, image_url, category_id) {
-  // build my body object outside of my fetch
-  const bodyData = {title, description, image_url, category_id}
+function postBeach(name, country_id, location, description, image_url) {
+    // console.log(name, country_id, location, description, image_url);
+    // in bodyData attributs has to be exactly same lake in db schema, I can give as value whatever variable I want key in body has to be exactly same like in db
+    // in const body Data I am using destructuring and becouse I gave same name for key and value I can have  variable const bodyData outside body of fetch request
+    const bodyData = {name, country_id, location, description, image_url}
 
-  fetch(endPoint, {
-    // POST request
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(bodyData)
-  })
-  .then(response => response.json())
-  .then(syllabus => {
-
-    const newSyllabus = new Syllabus(syllabus.data.id, syllabus.data.attributes)
-
-    // call renderSyllabusCard() located in Syllabus class
-    document.querySelector('#syllabus-container').innerHTML += newSyllabus.renderSyllabusCard();
-  })
+    fetch(endPoint, {
+        // POST request
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`},
+        body: JSON.stringify(bodyData)
+    })
+    .then(response => response.json())
+    .then(beach => {
+        console.log(beach)
+        
+        const beachData =  beach.data
+        // 
+        // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
+        // const newBeach = new Beach(beach.data.id, beach.data.attributes)
+        const newBeach = new Beach(beachData, beachData.attributes)
+        // render(beach) - call renderBeachCard() located in Beach class 
+        document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+    })
 }
 Creating a Static Method for "Find" Utility
-/* src/syllabus.js */
-class Syllabus {
+/* src/beach.js */
+class Beach {
   // ... previous code
 
   static findById(id) {
-    return this.all.find(syllabus => syllabus.id === id);
+    return this.all.find(beach => beach.id === id);
   }
 }
 
@@ -127,7 +168,7 @@ ja
 
 From learn.co:
 
-Static methods are useful ways to create utility methods for your data. If you have operation that you need do perform on a batch of data (say, find a particular syllabus in an array, as above), static methods are your go-to tool. Since they are called on the class but don't have access to individual objects, they are somewhat limited in their scope, but can be very powerful in the correct application.
+Static methods are useful ways to create utility methods for your data. If you have operation that you need do perform on a batch of data (say, find a particular beach in an array, as above), static methods are your go-to tool. Since they are called on the class but don't have access to individual objects, they are somewhat limited in their scope, but can be very powerful in the correct application.
 
 Clicking the 'edit' button & showing a form
 Our code above was a true refactoring: we didn't change any functionality, we only changed (and hopefully improved) the implementation details.
@@ -136,13 +177,13 @@ Now let's add the ability to click an edit button and show a filled out form. As
 
 Can we respond to the event at all? First let's just console.log or alert something on a click.
 
-Can we then console.log some data specific to the event. We'll try to console.log the whole syllabus object we're trying to edit.
+Can we then console.log some data specific to the event. We'll try to console.log the whole beach object we're trying to edit.
 
 Only after all that is wired up will we attempt to show a form with the correct values.
 
 The first step, though straightforward, involves some decision making--where should the code that attaches the event listener go?
 
-There is no right answer here. An argument could be made that it is the responsibility of the Syllabus class, something like Syllabus.addEditListeners(). The choice we will go with is to attach the event listeners in index.js which will continue to act as the "parent" of the Syllabus class. As the application scales and more classes are created, we could make a class called App that will be responsible for higher level things like attaching event listeners. Currently we only have one class, so attaching event listeners in index.js will do.
+There is no right answer here. An argument could be made that it is the responsibility of the Beach class, something like Beach.addEditListeners(). The choice we will go with is to attach the event listeners in index.js which will continue to act as the "parent" of the Beach class. As the application scales and more classes are created, we could make a class called App that will be responsible for higher level things like attaching event listeners. Currently we only have one class, so attaching event listeners in index.js will do.
 
 /* src/index.js */
 document.addEventListener('DOMContentLoaded', () => {
@@ -165,7 +206,7 @@ You are very much encouraged to try to get the next step working on your own. Yo
 
 a) grab the data-id of the clicked button out of the DOM and
 
-b) find the associated syllabus instance. Try it on your own. Below is an implementation that works.
+b) find the associated beach instance. Try it on your own. Below is an implementation that works.
 
 /* src/app.js */
 document.addEventListener('DOMContentLoaded', () => {
@@ -315,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })
 Making the PATCH request
-When the form is submitted we need to make a PATCH request to our server to update this syllabus record in our database. Like before, we will start with a straightforward approach and refactor.
+When the form is submitted we need to make a PATCH request to our server to update this beach record in our database. Like before, we will start with a straightforward approach and refactor.
 
 It seems like we already have a place in our app where we attach event listeners. Let's add our code there. I will skip a few steps here and go straight to the implementation. When you are trying to grab data from the DOM in your own projects try things like
 

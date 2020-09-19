@@ -113,13 +113,13 @@ Let's save ourselves trouble in the future and add this to the top of our `index
 
 ```javascript
 /* index.js */
-const endPoint = "http://localhost:3000/api/v1/syllabuses";
+const endPoint = "http://localhost:3000/api/v1/beaches";
 
 document.addEventListener('DOMContentLoaded', () => {
-  getSyllabi()
+  getBeaches()
 });
 
-function getSyllabi() {
+function getBeaches() {
   fetch(endPoint)
     .then(res => res.json())
     .then(json => console.log(json));
@@ -130,33 +130,33 @@ If you see the notes printed to the console, you're good to move forward.
 
 ### Render JSON
 
-The next step is getting the syllabi added to the DOM. No problem, add an empty `<div>` or `<ul>` element to `index.html` and go ahead and add each syllabus title, along with an edit button. We'll give the button a `data-id` in case we want to implement edit functionality in the future.
+The next step is getting the beaches added to the DOM. No problem, add an empty `<div>` or `<ul>` element to `index.html` and go ahead and add each beach title, along with an edit button. We'll give the button a `data-id` in case we want to implement edit functionality in the future.
 
 ```javascript
 /* src/index.js */
 document.addEventListener('DOMContentLoaded', () => {
-  const endPoint = "http://localhost:3000/api/v1/notes"
-  getSyllabi()
+  const endPoint = "http://localhost:3000/api/v1/beaches"
+  getBeaches()
 })
 
 
-function getSyllabi() {
+function getBeaches() {
   fetch(endPoint)
     .then(res => res.json())
-    .then(syllabi => {
+    .then(beaches => {
       // remember our JSON data is a bit nested due to our serializer
-      syllabi.data.forEach(syllabus => {
+      beaches.data.forEach(beach => {
         // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-        const syllabusMarkup = `
-          <div data-id=${syllabus.id}>
-            <img src=${syllabus.attributes.image_url} height="200" width="250">
-            <h3>${syllabus.attributes.title}</h3>
-            <p>${syllabus.attributes.category.name}</p>
-            <button data-id=${syllabus.id}>edit</button>
+        const beachMarkup = `
+          <div data-id=${beach.id}>
+            <img src=${beach.attributes.image_url} height="200" width="250">
+            <h3>${beach.attributes.title}</h3>
+            <p>${beach.attributes.category.name}</p>
+            <button data-id=${beach.id}>edit</button>
           </div>
           <br><br>`;
 
-          document.querySelector('#syllabus-container').innerHTML += syllabusMarkup
+          document.querySelector('#beach-container').innerHTML += beachMarkup
       })
     })
 }
@@ -176,32 +176,34 @@ Now that we've made a GET request we're familiar with how to GET data from the s
 The key differences are in order to POST data to the server, you might need to get some input from the user. To collect this we're going to use a HTML form.
 
 ```html
-<div class="form-container">
+    <div class="form-container">
 
-  <form id="create-syllabus-form" style="">
-    <h3>Create a Syllabus!</h3>
-
-    <input id='input-title' type="text" name="title" value="" placeholder="Enter your syllabus name..." class="input-text">
-    <br><br>
-    <textarea id='input-description' name="description" rows="8" cols="80" value="" placeholder="Enter your syllabus description..."></textarea>
-    <br><br>
-    <input id='input-url' type="text" name="image" value="" placeholder="Enter your syllabus image URL..." class="input-text">
-    <br><br>
-
-    <select id="categories" name="categories">
-      <option value="1">Art</option>
-      <option value="2">Tech</option>
-      <option value="3">Science</option>
-    </select>
-    <br><br>
-
-    <input id= 'create-button' type="submit" name="submit" value="Create New Syllabus" class="submit">
-  </form>
-
-</div>
+        <form id="create-beach-form">
+          <h3>Create a Beach!</h3>
+          <input id='input-name' type="text" name="name" value="" placeholder="Enter your beach name..." class="input-text">
+          <br><br>
+          <p>Select a Country</p>
+          <select id="countries" name="countries">
+            <option value="1">Greece</option>
+            <option value="2">Spain</option>
+            <option value="3">France</option>
+          </select>
+          <br><br>
+          <input id='input-location' type="text" name="location" value="" placeholder="Enter your beach location..." class="input-text">
+          <br><br>
+          <textarea id='input-description' name="description" rows="8" cols="80" value="" placeholder="Enter your beach description..."></textarea>
+          <br><br>
+          <input id='input-url' type="text" name="image" value="" placeholder="Enter your beach image URL..." class="input-text">
+          <br><br>
+      
+          <input id= 'create-button' type="submit" name="submit" value="Create New Beach" class="submit">
+ 
+        </form> 
+        <br><br>
+    </div>
 ```
 
-We'll use this form to allow a visitor to the site to create a syllabus using our app.
+We'll use this form to allow a visitor to the site to create a beach using our app.
 
 ### Submit Event
 
