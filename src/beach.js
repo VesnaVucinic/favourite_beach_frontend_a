@@ -18,12 +18,12 @@ class Beach {
 
   renderBeachCard() {
   return `
-      <div  class="col-md-4">
+      <div data-id="${this.id}" class="col-md-4">
         <div class="card mb-4 shadow-sm">
           <img src=${this.image_url} class="card-img-top" alt="...">
           <div class="card text-center" >
 
-          <div class="card-body">
+          <div class="card-body" data-id="${this.id}">
             <h6 class="card-title">${this.name}</h6>
             <p class="card-title">Location: ${this.location}</p>
             <p class="card-title">Country: ${this.country.name}</p>

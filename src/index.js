@@ -182,10 +182,19 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
         document.querySelector('#show-beach').innerHTML = newUpdatedBeach.renderShowBeach();
         // debugger
         // document.querySelector('#beach-container').innerHTML = 
+        const selectedBeachContainer = document.querySelector(`.col-md-4[data-id="${beach.id}"]`)
+        selectedBeachContainer.remove()
+        // document.querySelector(`.col-md-4[data-id="${beach.id}"]`).innerHTML = ""
+        // selectedBeachContainer.innerHTML = ""
         // debugger
         // delete beach.renderBeachCard
-        // document.querySelector('#beach-container').innerHTML += newUpdatedBeach.renderBeachCard();
+        // selectedBeachContainer.innerHTML = newUpdatedBeach.renderBeachCard();
+        document.querySelector('#beach-container').innerHTML += newUpdatedBeach.renderBeachCard();
         // debugger
+        // let selectedLocation = document.querySelector(
+        //     `.card[data-id="${locationDataId}"]`
+        //   );
+        //   selectedLocation.remove();
     }
     );
 };
