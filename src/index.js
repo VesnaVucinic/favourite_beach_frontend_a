@@ -187,7 +187,6 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
         // document.querySelector(`.col-md-4[data-id="${beach.id}"]`).innerHTML = ""
         selectedBeachContainer.innerHTML = ""
         // debugger
-        // delete beach.renderBeachCard
         // selectedBeachContainer.innerHTML = newUpdatedBeach.renderBeachCard();
         document.querySelector('#beach-container').innerHTML += newUpdatedBeach.renderBeachCard();
         // debugger
@@ -208,11 +207,13 @@ function deleteBeach() {
                 "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`
               },
     })
-        event.target.parentElement.parentElement.parentElement.parentElement.remove()
+        // event.target.parentElement.parentElement.parentElement.parentElement.remove()
+        removeBeach()
 }
 
-function closeBeach() {
-    event.target.parentElement.parentElement.parentElement.parentElement.remove()
+function removeBeach() {
+    selectedBeachContainer.remove()
+    // event.target.parentElement.parentElement.parentElement.parentElement.remove()
 }
 
 

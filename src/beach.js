@@ -57,7 +57,7 @@ class Beach {
           <p class="card-text">${this.description}</p>
           <div class="d-flex justify-content-between align-items-center">
             <button type="button" id="edit" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Edit</button>
-            <button type="button" onClick="closeBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Close</button>
+            <button type="button" onClick="removeBeach()" data-id=${this.id} class="btn btn-sm btn-outline-secondary">Close</button>
           </div>
         </div>
       </div>
