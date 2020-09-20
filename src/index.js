@@ -183,9 +183,9 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
         // debugger
         // document.querySelector('#beach-container').innerHTML = 
         const selectedBeachContainer = document.querySelector(`.col-md-4[data-id="${beach.id}"]`)
-        selectedBeachContainer.remove()
+        // selectedBeachContainer.remove()
         // document.querySelector(`.col-md-4[data-id="${beach.id}"]`).innerHTML = ""
-        // selectedBeachContainer.innerHTML = ""
+        selectedBeachContainer.innerHTML = ""
         // debugger
         // delete beach.renderBeachCard
         // selectedBeachContainer.innerHTML = newUpdatedBeach.renderBeachCard();
