@@ -12,15 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", (e) => loginFormHandler(e))
 
     // listen for 'click' event on beach container
-    // let beachContainer = document.getElementById("read")
     const beachContainer = document.querySelector('#beach-container')
     beachContainer.addEventListener('dblclick', e => {
         // console.log('clicked');
         const id = e.target.dataset.id;
-        // debugger
         const beach = Beach.findById(id);
         // debugger
-        // console.log(beach);
         document.querySelector('#show-beach').innerHTML = beach.renderShowBeach();      
     }) 
     // let showBeachContainer = document.getElementById('#edit')
@@ -47,24 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
 //     const submitEdit = document.getElementById('create-button')
 //     console.log('@@edit', submitEdit)
 // }
-  
-
-function getBeaches() {
-    fetch(endPoint)
-    .then(response => response.json()) 
-    .then(beaches => {
-            // remember our JSON data is a bit nested due to our serializer
-        beaches.data.forEach(beach => {
-            // double check how your data is nested in the console so you can successfully access the attributes of each individual object
-            // create a new instance of the Beach class for every beach in the array from the DB (remember how our data is nested)
-            //to create new instance of beach class when I made creator in beach.js 
-            // 
-            const newBeach = new Beach(beach, beach.attributes)
-            // render(beach) - call renderBeachCard() located in Beach class
-            document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
-        })
-    })
-} 
 
 function loginFormHandler(event) {
     event.preventDefault()
@@ -128,6 +107,22 @@ function eraseText() {
     document.querySelector('#input-url').value = ""
 }
 
+function getBeaches() {
+    fetch(endPoint)
+    .then(response => response.json()) 
+    .then(beaches => {
+            // remember our JSON data is a bit nested due to our serializer
+        beaches.data.forEach(beach => {
+            // double check how your data is nested in the console so you can successfully access the attributes of each individual object
+            // create a new instance of the Beach class for every beach in the array from the DB (remember how our data is nested)
+            //to create new instance of beach class when I made creator in beach.js 
+            const newBeach = new Beach(beach, beach.attributes)
+            // render(beach) - call renderBeachCard() located in Beach class
+            document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+        })
+    })
+} 
+
 function postBeach(name, country_id, location, description, image_url) {
     // console.log(name, country_id, location, description, image_url);
     // in bodyData attributs has to be exactly same lake in db schema, I can give as value whatever variable I want key in body has to be exactly same like in db
@@ -143,14 +138,13 @@ function postBeach(name, country_id, location, description, image_url) {
     .then(response => response.json())
     .then(beach => {
         console.log(beach)
-        
         const beachData =  beach.data
-        // 
         // render JSON response, render data to user to see what created, manuplate DOM by showing user what created, data is pointing to single object not array like in get fetch where I had arrey and .forEach
         // const newBeach = new Beach(beach.data.id, beach.data.attributes)
         const newBeach = new Beach(beachData, beachData.attributes)
         // render(beach) - call renderBeachCard() located in Beach class 
         document.querySelector('#beach-container').innerHTML += newBeach.renderBeachCard();
+        // debugger
     })
 }
 
@@ -165,14 +159,12 @@ function updateFormHandler(e) {
     const image_url = e.target.querySelector('#input-url').value;
     const country_id = parseInt(e.target.querySelector('#countries').value);
     patchBeach(beach, name, location, description, image_url, country_id) 
+    e.target.parentElement.parentElement.remove()
 }
 
  // Send the PATCH Request to the Backend - When the form is submitted we need to make a PATCH request to our server to update this beach record in our database.
 function patchBeach(beach, name, location, description, image_url, country_id) {
-    // debugger
     const bodyJSON = {name, location, description, image_url, country_id}
-    // document.querySelector('#show-beach').innerHTML = beach.bodyJSON
-
     // debugger
     fetch(`http://localhost:3000/api/v1/beaches/${beach.id}`, {
       method: 'PATCH',
@@ -184,13 +176,18 @@ function patchBeach(beach, name, location, description, image_url, country_id) {
     })
       .then(res => res.json())
       // our backend responds with the updated beach instance represented as JSON
-      
-      .then(updatedBeachJSON => 
-        console.log(updatedBeachJSON) 
-        
-        //   beach.innerHTML = updatedBeach
+      .then(updatedBeach => {
+        console.log(updatedBeach)
+        const newUpdatedBeach = new Beach(updatedBeach.data, updatedBeach.data.attributes)
+        document.querySelector('#show-beach').innerHTML = newUpdatedBeach.renderShowBeach();
+        // debugger
+        // document.querySelector('#beach-container').innerHTML = 
+        // debugger
+        // delete beach.renderBeachCard
+        // document.querySelector('#beach-container').innerHTML += newUpdatedBeach.renderBeachCard();
+        // debugger
+    }
     );
-    //   debugger
 };
 
 function deleteBeach() {
@@ -199,7 +196,6 @@ function deleteBeach() {
     fetch(`http://127.0.0.1:3000/api/v1/beaches/${beachDataId}`, {
       method: "DELETE",
       headers: {
-                
                 "Authorization": `Bearer ${localStorage.getItem('jwt_token')}`
               },
     })
